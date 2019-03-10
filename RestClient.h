@@ -2,7 +2,6 @@
 #define RestClient_h
 
 #include <Arduino.h>
-
 #include <WiFiClientSecure.h>
 
 class RestClient {

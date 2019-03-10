@@ -2,7 +2,10 @@
 
 HTTP Request library for Arduino and the ESP8266 WiFi SOC modules
 
-This library now supports SSL!  To use with SSL, you need to include the SHA1 fingerprint of the certificate of the site you are connecting to.  You can get this by using a desktop browser and inspecting the SSL cert used at the site.  Please note: this is FRAGILE, if the site updates their SSL, your code will break.  But, there is not enough memory on the ESP8266 to store all the rool certs, so this is a working method.  Se the example below.
+This library supports SSL!  
+To use with SSL either include the SHA1 fingerprint of the certificate of the site you are connecting to, or use force the library to use ssl insecurely (don't veryify the server is who it says it is).
+
+You can get the SHA1 fingerprint by using a desktop browser and inspecting the SSL cert used at the site.  Please note: this is FRAGILE, if the site updates their SSL, your code will break.  But, there is not enough memory on the ESP8266 to store all the rool certs, so this is a working method.  Se the example below.
 
 This library is derived almost entirely from the great work done here: https://github.com/csquared/arduino-restclient
 

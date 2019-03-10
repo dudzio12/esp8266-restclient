@@ -2,12 +2,7 @@
 #define RestClient_h
 
 #include <Arduino.h>
-
-#define USING_AXTLS
-#include <ESP8266WiFi.h>
-#include <WiFiClientSecureAxTLS.h>
-using namespace axTLS;
-
+#include <WiFiClientSecure.h>
 
 class RestClient {
 

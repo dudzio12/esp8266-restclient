@@ -1,6 +1,6 @@
 {
   "name":"ESP8266_REST_client_SSL",
-  "version":"1.0.0",
+  "version":"2.0.0",
   "keywords":"rest",
   "description":"A restclient for the esp8266 that supports SSL",
   "repository":

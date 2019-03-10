@@ -158,18 +158,18 @@ int RestClient::request(const char* method, const char* path,
     HTTP_DEBUG_PRINT("HTTP: connect\n");
 
     if (ssl) {
+        if (fingerprint)
+        {
+            sslClient.setFingerprint(fingerprint);
+        }
+        else
+        {
+            sslClient.setInsecure();
+        }
+        
         if(!sslClient.connect(host, port)){
             HTTP_DEBUG_PRINT("HTTPS Connection failed\n");
             return 0;
-        }
-        if (fingerprint) {
-            HTTP_DEBUG_PRINT("Verifiying SSL certificate\n");
-            if (sslClient.verify(fingerprint, host)) {
-                HTTP_DEBUG_PRINT("SSL certificate matches\n");
-            } else {
-                HTTP_DEBUG_PRINT("SSL certificate does not match\n");
-                return 0;
-            }
         }
     } else {
         if(!client.connect(host, port)){

@@ -29,24 +29,24 @@ You need to have the `ESP8266` board support already included.
 
 Constructor to create an RestClient object to make requests against.
 
-Use domain name and default to port 80:
+Use a domain name and default to port 80:
 ```c++
 RestClient client = RestClient("arduino-http-lib-test.herokuapp.com");
 ```
 
 Use a local IP and an explicit port:
 ```c++
-RestClient client = RestClient("192.168.1.50",5000);
+RestClient client = RestClient("192.168.1.50", 5000);
 ```
 
-Use a local IP, an explicit port to an SSL site and (must include the 1 to turn on SSL):
+Use a domain name, an explicit port to an SSL site and verify the certificate with its fingerprint:
 ```c++
-RestClient client = RestClient("www.kudoso.com",443, 1);
+RestClient client = RestClient("www.kudoso.com", 443, "EE 16 77 79 55 58 92 46 FB 18 40 99 2E 17 7E AB 32 0A 4A 88");
 ```
 
-Use a local IP, an explicit port to an SSL site and verify the certificate with its fingerprint:
+Use a domain name, an explicit port to an SSL site and force insecure SSL with no ssl verification:
 ```c++
-RestClient client = RestClient("www.kudoso.com",443, "EE 16 77 79 55 58 92 46 FB 18 40 99 2E 17 7E AB 32 0A 4A 88");
+RestClient client = RestClient("www.kudoso.com", 443, 1);
 ```
 
 ### dhcp()
@@ -63,48 +63,56 @@ All methods return an HTTP status code or 0 if there was an error.
 
 Start making requests!
 
+## GET
+Getting the response is optional:
 ```c++
-int statusCode = client.get("/"));
-```
-
-Pass in a string *by reference* for the response:
-```
 String response = "";
 int statusCode = client.get("/", &response);
 ```
 
-### post(const char* path, const char* body)
-### post(const char* path, String* response)
-### post(const char* path, const char* body, String* response)
+## POST
 
+There are three different overloads of post:
+```c++
+post(const char* path, const char* body)
+post(const char* path, String* response)
+post(const char* path, const char* body, String* response)
 ```
+
+Examples:
+```c++
 String response = "";
 int statusCode = client.post("/", &response);
-statusCode = client.post("/", "foo=bar");
-response = "";
-statusCode = client.post("/", "foo=bar", &response);
 ```
 
-### put(const char* path, const char* body)
-### put(const char* path, String* response)
-### put(const char* path, const char* body, String* response)
+```c++
+const char* post_body = "{foo: 'bar', bob: 'alice'}";
 
+int statusCode = client.post("/", post_body);
 ```
+
+```c++
 String response = "";
-int statusCode = client.put("/", &response);
-statusCode = client.put("/", "foo=bar");
-response = "";
-statusCode = client.put("/", "foo=bar", &response);
+const char* post_body = "{foo: 'bar', bob: 'alice'}";
+
+int statusCode = client.post("/", post_body, &response);
 ```
 
-### del(const char* path)
-### del(const char* path, const char* body)
-### del(const char* path, String* response)
-### del(const char* path, const char* body, String* response)
+## PUT
 
+```c++
+put(const char* path, const char* body)
+put(const char* path, String* response)
+put(const char* path, const char* body, String* response)
 ```
-String response = "";
-int statusCode = client.del("/", &response);
+
+## DEL
+
+```c++
+del(const char* path)
+del(const char* path, const char* body)
+del(const char* path, String* response)
+del(const char* path, const char* body, String* response)
 ```
 
 ## Full Example

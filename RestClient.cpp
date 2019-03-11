@@ -254,6 +254,7 @@ int RestClient::readResponse(String* response) {
         HTTP_DEBUG_PRINT("HTTP: Connect: " + String(sslClient.connected()) + " Available: " + String(sslClient.available()) + "\n");
         while (sslClient.connected()) {
             HTTP_DEBUG_PRINT(".");
+            delay(0);
 
             if (sslClient.available()) {
                 HTTP_DEBUG_PRINT(",");
@@ -299,6 +300,7 @@ int RestClient::readResponse(String* response) {
     }else {
         while (client.connected()) {
             HTTP_DEBUG_PRINT(".");
+            delay(0);
 
             if (client.available()) {
                 HTTP_DEBUG_PRINT(",");

@@ -10,7 +10,7 @@
 #include <ESP8266WiFi.h>
 #include "RestClient.h"
 
-int test_delay = 1000; //so we don't spam the API
+int test_delay = 1500; //so we don't spam the API
 boolean describe_tests = true;
 
 RestClient client = RestClient("esp-rest-test.herokuapp.com");

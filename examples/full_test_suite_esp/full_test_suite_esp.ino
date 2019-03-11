@@ -7,7 +7,7 @@
  * Meant to call the API provided by: https://github.com/Hal9k-dk/REST-test
  */
 
-
+#include <ESP8266WiFi.h>
 #include "RestClient.h"
 
 int test_delay = 250; //so we don't spam the API

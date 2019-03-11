@@ -3,7 +3,7 @@
 HTTP Request library for Arduino and the ESP8266 WiFi SOC modules
 
 This library supports SSL!  
-To use with SSL either include the SHA1 fingerprint of the certificate of the site you are connecting to, or use force the library to use ssl insecurely (don't veryify the server is who it says it is).
+To use with SSL either include the SHA1 fingerprint of the certificate of the site you are connecting to, or force the library to use ssl insecurely (don't veryify the server is who it says it is).
 
 You can get the SHA1 fingerprint by using a desktop browser and inspecting the SSL cert used at the site.  Please note: this is FRAGILE, if the site updates their SSL, your code will break.  But, there is not enough memory on the ESP8266 to store all the rool certs, so this is a working method.  Se the example below.
 
@@ -19,15 +19,16 @@ where `~/Documents/Arduino` is your sketchbook directory.
     > cd libraries
     > git clone https://github.com/dakaz/esp8266-restclient.git RestClient
 
+# Dependencies
+
+You need to have the `ESP8266` board support already installed.
+
 # Usage
 
-### Include
-
-You need to have the `ESP8266` board support already included.
-
-### RestClient(host/ip, [port])
-
 Constructor to create an RestClient object to make requests against.
+```c++
+RestClient(const char* host/ip, [int port], [bool force / const char* fingerprint]);
+```
 
 Use a domain name and default to port 80:
 ```c++
@@ -44,7 +45,7 @@ Use a domain name, an explicit port to an SSL site and verify the certificate wi
 RestClient client = RestClient("www.kudoso.com", 443, "EE 16 77 79 55 58 92 46 FB 18 40 99 2E 17 7E AB 32 0A 4A 88");
 ```
 
-Use a domain name, an explicit port to an SSL site and force insecure SSL with no ssl verification:
+Use a domain name, an explicit port to an SSL site and force insecure SSL with no certificate verification:
 ```c++
 RestClient client = RestClient("www.kudoso.com", 443, 1);
 ```
@@ -52,7 +53,7 @@ RestClient client = RestClient("www.kudoso.com", 443, 1);
 ### dhcp()
 
 Sets up `EthernetClient` with a mac address of `DEADBEEFFEED`. Returns `true` or `false` to indicate if setting up DHCP
-was successful or not
+was successful or not. Not used on the ESP.
 
 ## RESTful methods
 
@@ -64,7 +65,16 @@ All methods return an HTTP status code or 0 if there was an error.
 Start making requests!
 
 ## GET
-Getting the response is optional:
+
+```c++
+get(const char* path, [String* response]);
+```
+
+Examples:
+```c++
+int statusCode = client.get("/");
+```
+
 ```c++
 String response = "";
 int statusCode = client.get("/", &response);

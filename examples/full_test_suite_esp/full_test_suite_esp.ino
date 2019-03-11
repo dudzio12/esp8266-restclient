@@ -23,7 +23,7 @@ const char pass[] = "PASS";
 //Setup
 void setup() 
 {
-  Serial.begin(76800);
+  Serial.begin(74880);
   delay(10);
 
   // Connect to Wi-Fi network

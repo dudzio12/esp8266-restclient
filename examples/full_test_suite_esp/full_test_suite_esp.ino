@@ -10,7 +10,7 @@
 #include <ESP8266WiFi.h>
 #include "RestClient.h"
 
-int test_delay = 250; //so we don't spam the API
+int test_delay = 1000; //so we don't spam the API
 boolean describe_tests = true;
 
 RestClient client = RestClient("esp-rest-test.herokuapp.com");
@@ -234,7 +234,7 @@ void DELETE_tests()
   client.setContentType("application/json");
   client.setHeader("X-Test-Header1: one");
   client.setHeader("X-Test-Header2: two");
-  test_status(client.del("/data-headers", post_body, &response));
+  test_status(client.del("/", post_body, &response));
   test_response(true, 2);
 }
 

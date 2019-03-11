@@ -205,7 +205,7 @@ int RestClient::request(const char* method, const char* path,
         request += String(body);
         request += "\r\n\r\n";
     }
-
+    delay(0);
     write(request.c_str());
 
     HTTP_DEBUG_PRINT("\nEND REQUEST\n");
@@ -257,7 +257,7 @@ int RestClient::readResponse(String* response) {
 
             if (sslClient.available()) {
                 HTTP_DEBUG_PRINT(",");
-
+                delay(0);
                 char c = sslClient.read();
                 HTTP_DEBUG_PRINT(c);
 
@@ -302,7 +302,7 @@ int RestClient::readResponse(String* response) {
 
             if (client.available()) {
                 HTTP_DEBUG_PRINT(",");
-
+                delay(0);
                 char c = client.read();
                 HTTP_DEBUG_PRINT(c);
 

@@ -17,10 +17,29 @@ RestClient client = RestClient("esp-rest-test.herokuapp.com");
 //RestClient client  = RestClient("10.0.1.47",5000);
 
 
+const char ssid[] = "SSID";
+const char pass[] = "PASS";
+
 //Setup
 void setup() 
 {
   Serial.begin(76800);
+  delay(10);
+
+  // Connect to Wi-Fi network
+  Serial.println();
+  Serial.println();
+  Serial.print("Connecting to...");
+  Serial.println(ssid);
+
+  WiFi.begin(ssid, pass);
+
+  while (WiFi.status() != WL_CONNECTED) 
+  {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("\nWi-Fi connected successfully\n");
 }
 
 void test_status(int statusCode)

@@ -150,6 +150,10 @@ void RestClient::setSSL(int _ssl){
     ssl = (_ssl) ? 1 : 0;
 }
 
+void RestClient::setPort(int _port){
+    port = _port;
+}
+
 // The mother- generic request method.
 //
 int RestClient::request(const char* method, const char* path,

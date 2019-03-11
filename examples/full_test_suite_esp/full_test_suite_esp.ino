@@ -244,13 +244,18 @@ void loop()
 {
   Serial.println("\nplain tests:");
   client.setSSL(0);
+  client.setPort(80);
+
   GET_tests();
   POST_tests();
   PUT_tests();
   DELETE_tests();
 
+
   Serial.println("\nSSL tests:");
   client.setSSL(1);
+  client.setPort(443);
+
   GET_tests();
   POST_tests();
   PUT_tests();

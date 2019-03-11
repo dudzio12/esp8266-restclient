@@ -27,6 +27,8 @@ public:
     void setContentType(const char*);
     // Set SSL support on(1) or off(0)
     void setSSL(int);
+    // Set port used
+    void setPort(int);
 
     // GET path
     int get(const char*);

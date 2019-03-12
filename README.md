@@ -32,7 +32,7 @@ RestClient(const char* host/ip, [int port], [bool force / const char* fingerprin
 
 Use a domain name and default to port 80:
 ```c++
-RestClient client = RestClient("arduino-http-lib-test.herokuapp.com");
+RestClient client = RestClient("esp-rest-test.herokuapp.com");
 ```
 
 Use a local IP and an explicit port:
@@ -59,9 +59,6 @@ was successful or not. Not used on the ESP.
 
 All methods return an HTTP status code or 0 if there was an error.
 
-### `get(const char* path)`
-### `get(const char* path, String* response)`
-
 Start making requests!
 
 ## GET
@@ -84,9 +81,9 @@ int statusCode = client.get("/", &response);
 
 There are three different overloads of post:
 ```c++
-post(const char* path, const char* body)
-post(const char* path, String* response)
-post(const char* path, const char* body, String* response)
+post(const char* path, const char* body);
+post(const char* path, String* response);
+post(const char* path, const char* body, String* response);
 ```
 
 Examples:
@@ -111,18 +108,18 @@ int statusCode = client.post("/", post_body, &response);
 ## PUT
 
 ```c++
-put(const char* path, const char* body)
-put(const char* path, String* response)
-put(const char* path, const char* body, String* response)
+put(const char* path, const char* body);
+put(const char* path, String* response);
+put(const char* path, const char* body, String* response);
 ```
 
 ## DEL
 
 ```c++
-del(const char* path)
-del(const char* path, const char* body)
-del(const char* path, String* response)
-del(const char* path, const char* body, String* response)
+del(const char* path);
+del(const char* path, const char* body);
+del(const char* path, String* response);
+del(const char* path, const char* body, String* response);
 ```
 
 ## Full Example

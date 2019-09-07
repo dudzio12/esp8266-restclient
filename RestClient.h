@@ -14,11 +14,11 @@ public:
     // set fingerprint if using SSL, stores the SHA1 fingerprint of the remote site, implicity sets ssl to on
     RestClient(const char* _host, int _port, const char* _fingerprint);
 
-    //Client Setup
+    // Client Setup
     bool dhcp();
     int begin(byte*);
 
-    //Generic HTTP Request
+    // Generic HTTP Request
     int request(const char* method, const char* path,
                 const char* body, String* response);
     // Set a Request Header
@@ -64,13 +64,13 @@ private:
     WiFiClientSecure sslClient;
     int readResponse(String*);
     void write(const char*);
-    const char* host;
-    int port;
-    int num_headers;
-    const char* headers[10];
-    const char* contentType;
-    const char* fingerprint;
-    int ssl;
+    const char* host = nullptr;
+    int port = 0;
+    int num_headers = 0;
+    const char* headers[10] = { nullptr };
+    const char* contentType  = nullptr;
+    const char* fingerprint = nullptr;
+    bool ssl = 0;
 };
 
 #endif

@@ -7,12 +7,12 @@
 class RestClient {
 
 public:
-    RestClient(const char* host);
-    RestClient(const char* _host, int _port);
+    explicit RestClient(const char* host);
+    explicit RestClient(const char* _host, int _port);
     // set ssl to on but do not verify server identity with fingerprint
-    RestClient(const char* _host, int _port, int _ssl);
+    explicit RestClient(const char* _host, int _port, bool _ssl);
     // set fingerprint if using SSL, stores the SHA1 fingerprint of the remote site, implicity sets ssl to on
-    RestClient(const char* _host, int _port, const char* _fingerprint);
+    explicit RestClient(const char* _host, int _port, const char* _fingerprint);
 
     // Client Setup
     bool dhcp();
@@ -25,8 +25,8 @@ public:
     void setHeader(const char*);
     // Set Content-Type Header
     void setContentType(const char*);
-    // Set SSL support on(1) or off(0)
-    void setSSL(int);
+    // Set SSL support on or off
+    void setSSL(bool);
     // Set port used
     void setPort(int);
 
@@ -70,7 +70,7 @@ private:
     const char* headers[10] = { nullptr };
     const char* contentType  = nullptr;
     const char* fingerprint = nullptr;
-    bool ssl = 0;
+    bool ssl = false;
 };
 
 #endif

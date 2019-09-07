@@ -271,7 +271,7 @@ int RestClient::readResponse(String* response) {
                     }
 
                     if (c == '\n') {
-                        // you're starting a new line
+                        // your starting a new line
                         currentLineIsBlank = true;
                     }
                     else if (c != '\r') {
@@ -307,7 +307,7 @@ int RestClient::readResponse(String* response) {
                 }
 
                 if(httpBody){
-                    //only write response if its not null
+                    // only write response if its not null
                     if(response != NULL) response->concat(c);
                 }
                 else
@@ -317,7 +317,7 @@ int RestClient::readResponse(String* response) {
                     }
 
                     if (c == '\n') {
-                        // you're starting a new line
+                        // your starting a new line
                         currentLineIsBlank = true;
                     }
                     else if (c != '\r') {
@@ -326,6 +326,12 @@ int RestClient::readResponse(String* response) {
                     }
                 }
             }
+        }
+        while (client.available()) {
+            char c = client.read();
+            if (httpBody)
+                if (response)
+                    response->concat(c);
         }
     }
 

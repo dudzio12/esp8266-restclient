@@ -2,9 +2,7 @@
 
 #ifdef HTTP_DEBUG
 #define HTTP_DEBUG_PRINT(string) (Serial.print(string))
-#endif
-
-#ifndef HTTP_DEBUG
+#else
 #define HTTP_DEBUG_PRINT(string)
 #endif
 
@@ -227,13 +225,6 @@ int RestClient::readResponse(String* response) {
     int i = 0;
     int code = 0;
 
-    if(response == NULL){
-        HTTP_DEBUG_PRINT("HTTP: NULL RESPONSE POINTER: \n");
-    }else{
-        HTTP_DEBUG_PRINT("HTTP: NON-NULL RESPONSE POINTER: \n");
-    }
-
-    HTTP_DEBUG_PRINT("HTTP: RESPONSE: \n");
     void* http_client;
     if(ssl) {
         HTTP_DEBUG_PRINT("HTTP: Connect: " + String(sslClient.connected()) + " Available: " + String(sslClient.available()) + "\n");
@@ -283,15 +274,12 @@ int RestClient::readResponse(String* response) {
         }
         HTTP_DEBUG_PRINT("HTTPS client closed \n");
     }else {
-        while (client.connected()) {
-            HTTP_DEBUG_PRINT(".");
+        while (client.connected() || client.available()) {
             delay(0);
 
             if (client.available()) {
-                HTTP_DEBUG_PRINT(",");
                 delay(0);
                 char c = client.read();
-                HTTP_DEBUG_PRINT(c);
 
                 if(c == ' ' && !inStatus){
                     inStatus = true;

@@ -9,6 +9,11 @@ You can get the SHA1 fingerprint by using a desktop browser and inspecting the S
 
 This library is derived almost entirely from the great work done here: https://github.com/csquared/arduino-restclient
 
+# Fork note
+
+API I used returns token inside response header, there was no way to access it, so I've managed to prepare two more functions. One for full access to raw response, and the second to fetch specific header value in simplest possible way. 
+I have no time to prepare full test suites, but it should work on any environments.
+
 # Install
 
 Clone (or download and unzip) the repository to `~/Documents/Arduino/libraries`
@@ -120,6 +125,23 @@ del(const char* path);
 del(const char* path, const char* body);
 del(const char* path, String* response);
 del(const char* path, const char* body, String* response);
+```
+
+## Additional function implemented in this fork
+
+```c++
+// Get raw response (without body)
+getRawLastResponse();
+// Get response header value by key
+getResponseHeader(const char* key, String*);
+```
+
+Examples:
+
+```c++
+String rawResponse = client.getRawLastResponse();
+String headerValue;
+client.getResponseHeader("Token", &headerValue);
 ```
 
 ## Full Example

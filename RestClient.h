@@ -59,9 +59,15 @@ public:
     // DELETE path and body and response
     int del(const char*, const char*, String*);
 
+    // Get raw last response
+    String getRawLastResponse();
+    // Get response header
+    void getResponseHeader(const char* key, String*);
+
 private:
     WiFiClient client;
     WiFiClientSecure sslClient;
+    String rawLastResponse;
     int readResponse(String*);
     void write(const char*);
     const char* host = nullptr;

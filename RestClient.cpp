@@ -11,6 +11,7 @@ RestClient::RestClient(const char* _host){
     port = 80;
     ssl = false;
     contentType = "application/x-www-form-urlencoded";
+	rawLastResponse = "";
 }
 
 RestClient::RestClient(const char* _host, int _port){
@@ -221,6 +222,7 @@ int RestClient::readResponse(String* response) {
     boolean httpBody = false;
     boolean inStatus = false;
 
+    String rawLastResponse = "";
     char statusCode[4];
     int i = 0;
     int code = 0;
@@ -269,6 +271,8 @@ int RestClient::readResponse(String* response) {
                         // you've gotten a character on the current line
                         currentLineIsBlank = false;
                     }
+
+                	rawLastResponse = rawLastResponse + c;
                 }
             }
         }
@@ -312,6 +316,8 @@ int RestClient::readResponse(String* response) {
                         // you've gotten a character on the current line
                         currentLineIsBlank = false;
                     }
+
+                	rawLastResponse = rawLastResponse + c;
                 }
             }
         }
@@ -325,4 +331,17 @@ int RestClient::readResponse(String* response) {
 
     HTTP_DEBUG_PRINT("HTTP: return readResponse3\n");
     return code;
+}
+
+String RestClient::getRawLastResponse() {
+	return rawLastResponse;
+}
+
+void RestClient::getResponseHeader(const char* key, String* value) {
+	String fullLengthPrefix = (String) key + ": ";
+	int start = rawLastResponse.indexOf(fullLengthPrefix);
+	int end = rawLastResponse.indexOf("\n", start);
+	if(start && end) {
+		value->concat(rawLastResponse.substring(start + 7,end));
+	}
 }

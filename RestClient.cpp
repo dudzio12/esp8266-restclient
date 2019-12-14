@@ -222,7 +222,6 @@ int RestClient::readResponse(String* response) {
     boolean httpBody = false;
     boolean inStatus = false;
 
-    String rawLastResponse = "";
     char statusCode[4];
     int i = 0;
     int code = 0;
@@ -231,11 +230,11 @@ int RestClient::readResponse(String* response) {
     if(ssl) {
         HTTP_DEBUG_PRINT("HTTP: Connect: " + String(sslClient.connected()) + " Available: " + String(sslClient.available()) + "\n");
         while (sslClient.connected()) {
-            HTTP_DEBUG_PRINT(".");
+            // HTTP_DEBUG_PRINT(".");
             delay(0);
 
             if (sslClient.available()) {
-                HTTP_DEBUG_PRINT(",");
+                // HTTP_DEBUG_PRINT(",");
                 delay(0);
                 char c = sslClient.read();
                 HTTP_DEBUG_PRINT(c);
@@ -338,10 +337,14 @@ String RestClient::getRawLastResponse() {
 }
 
 void RestClient::getResponseHeader(const char* key, String* value) {
+	HTTP_DEBUG_PRINT(rawLastResponse);
 	String fullLengthPrefix = (String) key + ": ";
+	HTTP_DEBUG_PRINT(fullLengthPrefix);
 	int start = rawLastResponse.indexOf(fullLengthPrefix);
 	int end = rawLastResponse.indexOf("\n", start);
+	HTTP_DEBUG_PRINT(start);
+	HTTP_DEBUG_PRINT(end);
 	if(start && end) {
-		value->concat(rawLastResponse.substring(start + 7,end));
+		value->concat(rawLastResponse.substring(start + fullLengthPrefix.length(), end-1));
 	}
 }
